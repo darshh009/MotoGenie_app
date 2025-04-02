@@ -1,5 +1,5 @@
 class FaqData{
-  final List<Map<String, String>> faqList = [
+  static List<Map<String, String>> faqList = [
     {
       "question": "What’s included in MotoGenie Elite?",
       "answer": "MotoGenie Elite offers priority servicing, free doorstep pickup & drop, discounted repairs, and 24/7 roadside assistance."
