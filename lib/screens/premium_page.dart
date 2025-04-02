@@ -6,6 +6,7 @@ import 'package:marquee/marquee.dart';
 import 'package:motogenie_app/data_models/benefits.dart';
 import 'package:motogenie_app/data_models/faq_data.dart';
 import 'package:motogenie_app/data_models/pricing_data.dart';
+import 'package:motogenie_app/screens/practice_screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class PremiumScreen extends StatefulWidget {
@@ -34,7 +35,6 @@ class _PremiumScreenState extends State<PremiumScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            /// Container with background image & text overlay
             Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height / 3.4,
@@ -258,18 +258,24 @@ class _PremiumScreenState extends State<PremiumScreen> {
             ),
             Container(
               height: MediaQuery.of(context).size.height*0.6,
-              child: ListView.builder(shrinkWrap: true,
-              physics: BouncingScrollPhysics(),
-              itemCount:FaqData.faqList.length,itemBuilder: (context,index){
-                return faqTile(context, index, FaqData.faqList[index]);
-              }),
+              child: ListView.builder(
+                padding: EdgeInsets.symmetric(vertical: 6),
+                shrinkWrap: true,
+                itemCount: FaqData.faqList.length,
+                itemBuilder: (context, index) {
+                  return faqTile(context, index, FaqData.faqList[index]);
+                },
+              ),
             ),
-
-
-            SizedBox(height: 10),
           ],
         ),
       ),
+      
+      bottomNavigationBar: BottomNavigationBar(items: [
+        BottomNavigationBarItem(icon: Icon(Icons.accessibility_new),label:"hello"),
+        BottomNavigationBarItem(icon: Icon(Icons.accessibility_new),label:"hello")
+
+      ]),
     );
   }
 
@@ -348,7 +354,7 @@ class _PremiumScreenState extends State<PremiumScreen> {
   Widget smoothIndicator() => AnimatedSmoothIndicator(
     activeIndex: activeIndex,
     count: 5,
-    effect: SwapEffect(
+    effect: ExpandingDotsEffect(
       dotHeight: 10,
       dotWidth: 10,
       dotColor: Colors.grey.shade500,
@@ -517,7 +523,7 @@ Widget pricingCard(
 
 Widget faqTile(BuildContext context, int index, Map<String, String> faq) {
   return Container(
-    margin: const EdgeInsets.symmetric(horizontal: 30,vertical: 10),
+    margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(10),
       border: Border.all(color: Colors.blue.shade200),
@@ -544,7 +550,10 @@ Widget faqTile(BuildContext context, int index, Map<String, String> faq) {
               child: Text(
                 faq['answer'] ?? 'No answer available',
                 textAlign: TextAlign.justify,
-                style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+                style: const TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w500,
+                ),
                 softWrap: true,
               ),
             ),

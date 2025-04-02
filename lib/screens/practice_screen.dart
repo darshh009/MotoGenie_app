@@ -1,74 +1,62 @@
 import 'package:flutter/material.dart';
 
 
-class MyApp extends StatelessWidget {
+class ScrollAppBarExample extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: FAQScreen(),
-    );
-  }
+  _ScrollAppBarExampleState createState() => _ScrollAppBarExampleState();
 }
 
-class FAQScreen extends StatelessWidget {
-  final List<Map<String, String>> faqList = [
-    {
-      "question": "What’s included in premium?",
-      "answer": "Premium includes 24/7 support, priority service, and exclusive discounts."
-    },
-    {
-      "question": "Can I cancel anytime?",
-      "answer": "Yes, you can cancel anytime from your account settings without any extra charges."
-    },
-    {
-      "question": "Is doorstep service available?",
-      "answer": "Yes, doorstep service is available in select cities."
-    },
-  ];
+class _ScrollAppBarExampleState extends State<ScrollAppBarExample> {
+  ScrollController _scrollController = ScrollController();
+  bool _isAppBarVisible = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_scrollListener);
+  }
+
+  void _scrollListener() {
+    if (_scrollController.position.pixels > 50) {
+      // Show AppBar when scrolled down
+      if (!_isAppBarVisible) {
+        setState(() {
+          _isAppBarVisible = true;
+        });
+      }
+    } else {
+      // Hide AppBar when at the top
+      if (_isAppBarVisible) {
+        setState(() {
+          _isAppBarVisible = false;
+        });
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("FAQs")),
-      body: ListView.builder(
-        itemCount: faqList.length,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.only(left: 6),
-            child: Container(
-              padding: EdgeInsets.all(5),
-              margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                  color: Colors.blue.shade500,
-                  width: 1,
-                )
-              ),
-              child: Theme(
-                data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-                child: ExpansionTile(
-                  title: Text(faqList[index]["question"]!, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                  minTileHeight: 30,
-                  clipBehavior: Clip.none,
-                  tilePadding: EdgeInsets.zero,
-                  backgroundColor: Colors.grey.shade100,
-
-
-
-
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Text(faqList[index]["answer"]!, style: TextStyle(fontSize: 16, color: Colors.grey[700])),
-                    ),
-                  ],
-                ),
-              ),
+      body: Stack(
+        children: [
+          AnimatedPositioned(
+            duration: Duration(milliseconds: 300),
+            curve: Curves.easeInOut,
+            top: _isAppBarVisible ? 0 : -60, // Initially hidden
+            left: 0,
+            right: 0,
+            child: AppBar(
+              title: Text("Scroll AppBar"),
+              backgroundColor: Colors.blue,
             ),
-          );
-        },
+          ),
+        ],
       ),
     );
   }
