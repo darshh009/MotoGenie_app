@@ -47,12 +47,89 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('MOTO GENIE', style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.deepOrange,
+        actions: [
+          InkWell(
+            splashColor: Colors.grey.shade50.withAlpha(30),
+            highlightColor: Colors.grey.shade100.withAlpha(50),
+
+            onTap: () {
+              showModalBottomSheet(
+                context: context,
+                builder: (BuildContext context) {
+                  return SizedBox(
+                    height: MediaQuery.of(context).size.height,
+                    width: MediaQuery.of(context).size.width,
+
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: ListTile(
+                            leading: Text(
+                              'Select Vehicle',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                              ),
+                            ),
+                            trailing: ElevatedButton.icon(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.grey.shade400,
+                                elevation: 5,
+                              ),
+                              onPressed: () {},
+                              label: Text(
+                                'Add New Vehicle',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 15,
+                                ),
+                              ),
+                              icon: Icon(Icons.add, color: Colors.black),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              );
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                color: Colors.transparent,
+              ),
+
+              height: 60,
+              width: 180,
+              child: ListTile(
+                dense: true,
+                title: Text(
+                  'Select Vehicle',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+
+                leading: Icon(Icons.arrow_drop_down, color: Colors.white),
+                trailing: FaIcon(
+                  FontAwesomeIcons.motorcycle,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
 
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
+        physics: ClampingScrollPhysics(),
+
         child: Container(
           color: Colors.deepOrange,
           child: Column(
@@ -120,13 +197,13 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.only(top: 10),
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: Colors.grey.shade100,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(40),
                       topRight: Radius.circular(40),
                     ),
                   ),
-                  height: MediaQuery.of(context).size.height,
+                  height: MediaQuery.of(context).size.height * 1.19,
                   child: Column(
                     children: [
                       Padding(
@@ -141,104 +218,119 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
 
-                      Expanded(
-                        child: Container(
-                          height: MediaQuery.of(context).size.height / 5,
-                          color: Colors.white,
-                          child: GridView.count(
-                            physics: NeverScrollableScrollPhysics(),
-                            crossAxisCount: 3,
-                            crossAxisSpacing: 10,
-                            mainAxisSpacing: 10,
-                            padding: EdgeInsets.all(10),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade100,
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        height: MediaQuery.of(context).size.height / 2.2,
+
+                        child: GridView.count(
+                          physics: NeverScrollableScrollPhysics(),
+                          crossAxisCount: 3,
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 10,
+                          padding: EdgeInsets.all(10),
+                          children: [
+                            ServiceCard(
+                              "Basic Wash",
+                              'Assets/images/basicwash.png',
+                              () {},
+                            ),
+                            ServiceCard(
+                              "Periodic Service",
+                              'Assets/images/periodicservice.png',
+                              () {},
+                            ),
+                            ServiceCard(
+                              "Brake Care",
+                              'Assets/images/brakecare.png',
+                              () {},
+                            ),
+                            ServiceCard(
+                              "Tyres & Wheel Care",
+                              'Assets/images/tyresandwheelcare.png',
+                              () {},
+                            ),
+                            ServiceCard(
+                              "Shine & Coat",
+                              'Assets/images/shineandcoat.png',
+                              () {},
+                            ),
+                            ServiceCard(
+                              "Batteries",
+                              'Assets/images/batteries.png',
+                              () {},
+                            ),
+                            ServiceCard(
+                              "Accessories",
+                              'Assets/images/accessories.png',
+                              () {},
+                            ),
+                            ServiceCard(
+                              "Denting & Painting",
+                              'Assets/images/dentingandpainting.png',
+                              () {},
+                            ),
+                            ServiceCard(
+                              "Electrical Maintainence",
+                              'Assets/images/electricalmaintainence.png',
+                              () {},
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height / 5,
+
+                        decoration: BoxDecoration(color: Colors.grey.shade50),
+
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 20, left: 23),
+                          child: Column(
                             children: [
-                              ServiceCard(
-                                "Basic Wash",
-                                'Assets/images/basicwash.png',
-                                () {},
+                              Text(
+                                'Moto Genie Guarantee',
+                                style: TextStyle(
+                                  fontFamily: GoogleFonts.roboto().fontFamily,
+                                  fontSize: 20,
+                                  color: Colors.deepOrange.shade900,
+                                ),
                               ),
-                              ServiceCard(
-                                "Periodic Service",
-                                'Assets/images/periodicservice.png',
-                                () {},
-                              ),
-                              ServiceCard(
-                                "Brake Care",
-                                'Assets/images/brakecare.png',
-                                () {},
-                              ),
-                              ServiceCard(
-                                "Tyres & Wheel Care",
-                                'Assets/images/tyresandwheelcare.png',
-                                () {},
-                              ),
-                              ServiceCard(
-                                "Shine & Coat",
-                                'Assets/images/shineandcoat.png',
-                                () {},
-                              ),
-                              ServiceCard(
-                                "Batteries",
-                                'Assets/images/batteries.png',
-                                () {},
-                              ),
-                              ServiceCard(
-                                "Accessories",
-                                'Assets/images/accessories.png',
-                                () {},
-                              ),
-                              ServiceCard(
-                                "Denting & Painting",
-                                'Assets/images/dentingandpainting.png',
-                                () {},
-                              ),
-                              ServiceCard(
-                                "Electrical Maintainence",
-                                'Assets/images/electricalmaintainence.png',
-                                () {},
+                              SizedBox(height: 20),
+                              SizedBox(
+                                height: 100,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+
+                                  itemCount: guaranteeItems.length,
+                                  itemBuilder: (context, index) {
+                                    return buildGuaranteeItem(
+                                      context,
+                                      guaranteeItems[index]["icon"],
+                                      guaranteeItems[index]["text"],
+                                      guaranteeItems[index]["color"],
+                                    );
+                                  },
+                                ),
                               ),
                             ],
                           ),
                         ),
                       ),
 
-                      Padding(
-                        padding: const EdgeInsets.only(top: 12.0, bottom: 250),
-                        child: Container(
-                          height: MediaQuery.of(context).size.height / 5,
-                          width: MediaQuery.of(context).size.width,
+                      Container(
+                        margin: EdgeInsets.only(top: 10),
+                        height: MediaQuery.of(context).size.height / 3,
+                        width: MediaQuery.of(context).size.width,
 
-                          decoration: BoxDecoration(color: Colors.grey.shade50),
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 20, left: 23),
-                            child: Column(
-                              children: [
-                                Text(
-                                  'Moto Genie Guarantee',
-                                  style: TextStyle(
-                                    fontFamily: GoogleFonts.roboto().fontFamily,
-                                    fontSize: 20,
-                                    color: Colors.deepOrange.shade900,
-                                  ),
-                                ),
-                                SizedBox(height: 10),
-                                SizedBox(
-                                  height: 100,
-                                  child: ListView.builder(
-                                    scrollDirection: Axis.horizontal,
-
-                                    itemCount: guaranteeItems.length,
-                                    itemBuilder: (context, index) {
-                                      return buildGuaranteeItem(
-                                        guaranteeItems[index]["icon"],
-                                        guaranteeItems[index]["text"],
-                                        guaranteeItems[index]["color"],
-                                      );
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ),
+                        decoration: BoxDecoration(
+                          color: Colors.yellow,
+                          image: DecorationImage(
+                            image: AssetImage('Assets/images/referimg.png'),
+                            fit: BoxFit.cover,
                           ),
                         ),
                       ),
@@ -273,7 +365,7 @@ class ServiceCard extends StatelessWidget {
           Text(
             title,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
           ),
         ],
       ),
@@ -281,11 +373,16 @@ class ServiceCard extends StatelessWidget {
   }
 }
 
-Widget buildGuaranteeItem(icon, String text, Color bgColor) {
+Widget buildGuaranteeItem(
+  BuildContext context,
+  Widget icon,
+  String text,
+  Color bgColor,
+) {
   return Container(
-    width: 130,
-    height: 100,
-    padding: EdgeInsets.all(10),
+    width: MediaQuery.of(context).size.width * 0.5,
+    height: MediaQuery.of(context).size.height * 5,
+
     margin: EdgeInsets.only(right: 20),
     decoration: BoxDecoration(
       color: bgColor,
@@ -299,7 +396,7 @@ Widget buildGuaranteeItem(icon, String text, Color bgColor) {
         Text(
           text,
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
         ),
       ],
     ),
