@@ -17,7 +17,7 @@ class _BottomNavState extends State<BottomNav> {
     PremiumScreen(),
     ProfileScreen(),
     PremiumScreen(),
-    ScrollAppBarExample()
+    ProfileScreen()
     // Add other screens here
   ];
 
