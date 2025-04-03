@@ -37,10 +37,10 @@ class _HomePageState extends State<HomePage> {
   final CarouselSliderController _controller = CarouselSliderController();
   int currentindex = 0;
   List srcimage = [
-    AssetImage('Assets/images/firstimage.png'),
-    AssetImage('Assets/images/secondimage.png'),
-    AssetImage('Assets/images/thirdimage.png'),
-    AssetImage('Assets/images/fourthimage.png'),
+    AssetImage('assets/images/firstimage.png'),
+    AssetImage('assets/images/secondimage.png'),
+    AssetImage('assets/images/thirdimage.png'),
+    AssetImage('assets/images/fourthimage.png'),
   ];
 
   @override
@@ -234,47 +234,47 @@ class _HomePageState extends State<HomePage> {
                           children: [
                             ServiceCard(
                               "Basic Wash",
-                              'Assets/images/basicwash.png',
+                              'assets/images/basicwash.png',
                               () {},
                             ),
                             ServiceCard(
                               "Periodic Service",
-                              'Assets/images/periodicservice.png',
+                              'assets/images/periodicservice.png',
                               () {},
                             ),
                             ServiceCard(
                               "Brake Care",
-                              'Assets/images/brakecare.png',
+                              'assets/images/brakecare.png',
                               () {},
                             ),
                             ServiceCard(
                               "Tyres & Wheel Care",
-                              'Assets/images/tyresandwheelcare.png',
+                              'assets/images/tyresandwheelcare.png',
                               () {},
                             ),
                             ServiceCard(
                               "Shine & Coat",
-                              'Assets/images/shineandcoat.png',
+                              'assets/images/shineandcoat.png',
                               () {},
                             ),
                             ServiceCard(
                               "Batteries",
-                              'Assets/images/batteries.png',
+                              'assets/images/batteries.png',
                               () {},
                             ),
                             ServiceCard(
                               "Accessories",
-                              'Assets/images/accessories.png',
+                              'assets/images/accessories.png',
                               () {},
                             ),
                             ServiceCard(
                               "Denting & Painting",
-                              'Assets/images/dentingandpainting.png',
+                              'assets/images/dentingandpainting.png',
                               () {},
                             ),
                             ServiceCard(
                               "Electrical Maintainence",
-                              'Assets/images/electricalmaintainence.png',
+                              'assets/images/electricalmaintainence.png',
                               () {},
                             ),
                           ],
@@ -329,7 +329,7 @@ class _HomePageState extends State<HomePage> {
                         decoration: BoxDecoration(
                           color: Colors.yellow,
                           image: DecorationImage(
-                            image: AssetImage('Assets/images/referimg.png'),
+                            image: AssetImage('assets/images/referimg.png'),
                             fit: BoxFit.cover,
                           ),
                         ),
