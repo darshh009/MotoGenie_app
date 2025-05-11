@@ -46,7 +46,7 @@ class _BottomNavState extends State<BottomNav> {
             onTap: _onItemTapped,
             type: BottomNavigationBarType.fixed,
             selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
-            selectedItemColor: Colors.deepOrange,
+            selectedItemColor: Colors.red,
             unselectedItemColor: Colors.blueGrey,
 
             items: [
@@ -71,11 +71,9 @@ class _BottomNavState extends State<BottomNav> {
             left: MediaQuery.of(context).size.width / 3.9 * _selectedIndex,
             child: AnimatedContainer(
               duration: Duration(milliseconds: 200),
-              curve: Curves.easeInOut, // Smooth transition effect
-              width:
-                  MediaQuery.of(context).size.width /
-                  5.2, // Equal width for each item
-              height: 1, // Thin top indicator
+              curve: Curves.easeInOut,
+              width: MediaQuery.of(context).size.width / 5.2,
+              height: 1,
               decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
@@ -85,14 +83,7 @@ class _BottomNavState extends State<BottomNav> {
                     offset: Offset(0, -1),
                   ),
                 ],
-                border: Border(
-                  top: BorderSide(
-                    color:
-                        Colors
-                            .red, // Replace with any effect (shadow, gradient, etc.)
-                    width: 2, // Thickness of the indicator
-                  ),
-                ),
+                border: Border(top: BorderSide(color: Colors.red, width: 2)),
               ),
             ),
           ),
@@ -101,7 +92,6 @@ class _BottomNavState extends State<BottomNav> {
     );
   }
 
-  /// Builds standard icon with top indicator
   Widget _buildIcon(IconData icon, int index, {Color? color}) {
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -120,7 +110,6 @@ class _BottomNavState extends State<BottomNav> {
     );
   }
 
-  /// Builds the "Elite" image icon with top indicator
   Widget _buildEliteIcon(int index) {
     return Column(
       mainAxisSize: MainAxisSize.min,

@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:motogenie_app/bottom_navigation.dart';
+import 'package:motogenie_app/data_models/checkuser.dart';
+import 'package:motogenie_app/data_models/loginpage.dart';
 import 'package:motogenie_app/screens/premium_page.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -11,9 +13,10 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {
+class _SplashScreenState extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
   double _opacity = 0.0;
-  bool _showProgress=false;// Initial opacity for fade-in animation
+  bool _showProgress = false; // Initial opacity for fade-in animation
 
   @override
   void initState() {
@@ -24,7 +27,6 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
       setState(() {
         _opacity = 1.0;
       });
-
     });
 
     Future.delayed(Duration(milliseconds: 500), () {
@@ -33,12 +35,12 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
       });
     });
 
-    // Navigate to the next screen after 2 seconds
     Timer(Duration(seconds: 3), () {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BottomNav()));
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => CheckUser()),
+      );
     });
-
-
   }
 
   @override
@@ -69,17 +71,19 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
               curve: Curves.easeOut,
             ),
             // Circular Progress Indicator
-            if(_showProgress)
-            Positioned(
-            top:MediaQuery.of(context).size.height*0.7,
-            key: UniqueKey(),
-            child: Lottie.asset("assets/animations/bike.json",
-            width: 150,
-            height: 150),),
+            if (_showProgress)
+              Positioned(
+                top: MediaQuery.of(context).size.height * 0.7,
+                key: UniqueKey(),
+                child: Lottie.asset(
+                  "assets/animations/bike.json",
+                  width: 150,
+                  height: 150,
+                ),
+              ),
           ],
         ),
       ),
-
     );
   }
 }

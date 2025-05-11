@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:motogenie_app/data_models/loginpage.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -13,6 +16,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey.shade100,
       appBar: AppBar(
         flexibleSpace: Container(
           decoration: BoxDecoration(
@@ -147,9 +151,54 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           ),
 
-          Container(
-            height: MediaQuery.of(context).size.height * 0.5,
-            color: Colors.blue.shade50,
+          Padding(
+            padding: const EdgeInsets.only(top: 380.0, right: 10, left: 10),
+            child: ListTile(
+              tileColor: Colors.deepOrangeAccent.shade200,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+              ),
+              leading: FaIcon(
+                FontAwesomeIcons.powerOff,
+                color: Colors.white,
+                size: 20,
+              ),
+              title: Text(
+                'Log Out',
+                style: TextStyle(fontSize: 18, color: Colors.white),
+              ),
+              trailing: Icon(
+                Icons.arrow_forward,
+                color: Colors.white,
+                size: 20,
+              ),
+              onTap: () {
+                FirebaseAuth.instance.signOut().then((value) {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => const LoginPage()),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      backgroundColor: Colors.deepOrange,
+                      behavior: SnackBarBehavior.floating,
+                      content: Text(
+                        "Logged Out Successfully!",
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      duration: Duration(seconds: 2),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                      ),
+                    ),
+                  );
+                });
+              },
+            ),
           ),
         ],
       ),

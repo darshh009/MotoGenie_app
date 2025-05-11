@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "974420597974",
+    "project_id": "motogenie-66388",
+    "storage_bucket": "motogenie-66388.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:974420597974:android:0787965134afb5ab6ebd77",
+        "android_client_info": {
+          "package_name": "com.example.motogenie_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkRFHFaMqEZQg3BhDR-nP0dfbg1ZRGvM8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

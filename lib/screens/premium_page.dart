@@ -167,12 +167,7 @@ class _PremiumScreenState extends State<PremiumScreen> {
               ),
             ),
             SizedBox(height: 12),
-            // benefitCard(
-            //   "assets/images/washing.jpg",  // Replace with your image path
-            //   "Exclusive Perks",                  // Replace with the benefit title
-            //   "Enjoy priority support\n andexclusive offers",
-            //   context// Replace with the description
-            // ),
+          
             CarouselSlider.builder(
               itemCount: BenefitsData.benefits.length,
               itemBuilder: (context, index, realIndex) {
