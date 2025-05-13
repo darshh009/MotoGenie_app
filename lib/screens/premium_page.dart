@@ -1,12 +1,14 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:marquee/marquee.dart';
 import 'package:motogenie_app/data_models/benefits.dart';
 import 'package:motogenie_app/data_models/faq_data.dart';
 import 'package:motogenie_app/data_models/pricing_data.dart';
-import 'package:motogenie_app/screens/practice_screen.dart';
+import 'package:motogenie_app/screens/razorpay.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class PremiumScreen extends StatefulWidget {
@@ -20,12 +22,33 @@ class _PremiumScreenState extends State<PremiumScreen> {
   int activeIndex = 0;
   bool isAnnual = false;
   int selectedIndex = 0;
+  late RazorPayService _razorPayService=RazorPayService(context: context);
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    _razorPayService = RazorPayService(context: context);
   }
+
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _razorPayService.dispose();
+  }
+
+
+  void _onCheckout() {
+    final selectedPlan = PricingData.plans[selectedIndex];
+    int amount = isAnnual ? selectedPlan['annual'] : selectedPlan['monthly'];
+    String planName = selectedPlan['name'];
+    _razorPayService.openCheckout(amount: amount, planName: planName);
+  }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -94,6 +117,10 @@ class _PremiumScreenState extends State<PremiumScreen> {
                       ),
                     ),
                   ),
+
+
+
+
                   Positioned(
                     bottom: -2,
                     child: Container(
@@ -113,7 +140,7 @@ class _PremiumScreenState extends State<PremiumScreen> {
                         ),
                         child: Marquee(
                           text:
-                              "Limited Offer: Get 10% Off on Annual Subscription",
+                          "Limited Offer: Get 10% Off on Annual Subscription",
                           velocity: 40.0,
                           blankSpace: 50,
                           pauseAfterRound: Duration(seconds: 3),
@@ -167,7 +194,12 @@ class _PremiumScreenState extends State<PremiumScreen> {
               ),
             ),
             SizedBox(height: 12),
-          
+            // benefitCard(
+            //   "assets/images/washing.jpg",  // Replace with your image path
+            //   "Exclusive Perks",                  // Replace with the benefit title
+            //   "Enjoy priority support\n andexclusive offers",
+            //   context// Replace with the description
+            // ),
             CarouselSlider.builder(
               itemCount: BenefitsData.benefits.length,
               itemBuilder: (context, index, realIndex) {
@@ -222,20 +254,254 @@ class _PremiumScreenState extends State<PremiumScreen> {
               child: Row(
                 children: List.generate(
                   PricingData.plans.length,
-                  (index) => SizedBox(
+                      (index) => SizedBox(
                     width: 300, // Adjust width as needed
-                    child: pricingCard(
-                      context,
-                      index,
-                      isAnnual,
-                      selectedIndex,
-                      () {
-                        setState(() {
-                          selectedIndex = index;
-                        });
-                      },
-                      PricingData.plans[index],
-                    ),
+                    child: pricingCard(context, index, isAnnual, selectedIndex, () {
+                      setState(() {
+                        selectedIndex = index;
+                      });
+                      showModalBottomSheet(
+                        backgroundColor: Colors.transparent,
+                        context: context,
+                        builder: (context) {
+                          final startDate = DateTime.now();
+                          final isAnnualSelected = isAnnual;
+                          final price =
+                          isAnnualSelected
+                              ? PricingData.plans[index]['annual']
+                              : PricingData.plans[index]['monthly'];
+                          final endDate =
+                          isAnnualSelected
+                              ? DateTime(
+                            startDate.year + 1,
+                            startDate.month,
+                            startDate.day,
+                          )
+                              : DateTime(
+                            startDate.year,
+                            startDate.month + 1,
+                            startDate.day,
+                          );
+                          String formattedDate = DateFormat(
+                            'd MMMM y',
+                          ).format(endDate);
+                          String startFormatted = DateFormat(
+                            'd MMMM y',
+                          ).format(startDate);
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10,
+                              vertical: 10,
+                            ),
+                            child: Container(
+                              width: double.infinity,
+                              height: MediaQuery.of(context).size.height * 0.39,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(7),
+                                color: Colors.white,
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.only(left: 15, top: 15),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "${PricingData.plans[index]['name']} Plan",
+                                      style: TextStyle(
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.bold,
+                                        color:
+                                        PricingData.plans[index]['highlight1'] ==
+                                            true
+                                            ? Colors.blue.shade900
+                                            : (PricingData
+                                            .plans[index]['highlight2'] ==
+                                            true
+                                            ? Colors.orange.shade700
+                                            : Color(0xffd1ac3f)),
+                                      ),
+                                    ),
+                                    SizedBox(height: 15),
+                                    SingleChildScrollView(
+                                      scrollDirection: Axis.vertical,
+                                      child: Container(
+                                        height: 120,
+                                        width:
+                                        MediaQuery.of(context).size.width *
+                                            0.85,
+                                        decoration: BoxDecoration(
+                                          color: Colors.orange.shade50,
+                                          borderRadius: BorderRadius.circular(
+                                            7,
+                                          ),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              blurRadius: 5,
+                                              color: Colors.grey.shade500,
+                                            ),
+                                          ],
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Column(
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Text(
+                                                    "Billing Cycle",
+                                                    style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 20,
+                                                      fontWeight:
+                                                      FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                  SizedBox(width: 10),
+                                                  FaIcon(
+                                                    FontAwesomeIcons.rotate,
+                                                    size: 22,
+                                                  ),
+                                                ],
+                                              ),
+
+                                              SizedBox(height: 12),
+                                              Row(
+                                                children: [
+                                                  Text(
+                                                    "Starting Date: ",
+                                                    style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 18,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    startFormatted,
+                                                    style: TextStyle(
+                                                      color:
+                                                      Colors
+                                                          .deepOrange
+                                                          .shade800,
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                      FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              SizedBox(height: 10),
+                                              Row(
+                                                children: [
+                                                  Text(
+                                                    "End Date: ",
+                                                    style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 18,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    formattedDate,
+                                                    style: TextStyle(
+                                                      color:
+                                                      Colors
+                                                          .deepOrange
+                                                          .shade800,
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                      FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(height:14),
+                                    Container(
+                                        width: MediaQuery.of(context).size.width*0.9,
+                                        child: Text("Note: Autopay will be deducted automatically on each billing cycle.",
+                                            style: TextStyle(
+                                                fontSize: 15,
+                                                fontStyle: FontStyle.italic,
+                                                color: Colors.red.shade600
+                                            ))),
+                                    SizedBox(height:7),
+
+                                    Row(
+                                      children: [
+                                        Text("Price: ",
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black,
+                                              fontFamily: GoogleFonts.poppins().fontFamily
+                                          ),),
+
+                                        Text("₹${price}",
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
+                                              color: PricingData.plans[index]['highlight1'] ==
+                                                  true
+                                                  ? Colors.blue.shade900
+                                                  : (PricingData
+                                                  .plans[index]['highlight2'] ==
+                                                  true
+                                                  ? Colors.deepOrange.shade700
+                                                  : Color(0xffd1ac0f)),
+                                              fontFamily: GoogleFonts.poppins().fontFamily
+                                          ),),
+
+
+                                      ],
+                                    ),
+                                    SizedBox(height: 10),
+
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 14),
+                                      child: ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                              elevation: 10,
+                                              minimumSize: Size(330,45),
+                                              backgroundColor: PricingData.plans[index]['highlight1'] ==
+                                                  true
+                                                  ? Colors.blue.shade900
+                                                  : (PricingData
+                                                  .plans[index]['highlight2'] ==
+                                                  true
+                                                  ? Colors.deepOrange.shade400
+                                                  : Color(0xffd1ac0f)),
+                                              foregroundColor: Colors.white,
+                                              splashFactory: InkRipple.splashFactory
+
+                                          ),
+
+                                          onPressed:_onCheckout
+
+                                          , child: Text("Checkout",
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily: GoogleFonts.poppins().fontFamily
+                                          ))),
+                                    )
+
+
+
+
+
+
+
+
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    }, PricingData.plans[index]),
                   ),
                 ),
               ),
@@ -252,9 +518,10 @@ class _PremiumScreenState extends State<PremiumScreen> {
               ),
             ),
             Container(
-              height: MediaQuery.of(context).size.height * 0.6,
+              height: MediaQuery.of(context).size.height * 0.49,
               child: ListView.builder(
-                padding: EdgeInsets.symmetric(vertical: 6),
+                physics: ClampingScrollPhysics(),
+                padding: EdgeInsets.symmetric(vertical: 10),
                 shrinkWrap: true,
                 itemCount: FaqData.faqList.length,
                 itemBuilder: (context, index) {
@@ -262,6 +529,17 @@ class _PremiumScreenState extends State<PremiumScreen> {
                 },
               ),
             ),
+            Center(
+              child: Text(
+                "🇮🇳 App Proudly made in India",
+                style: TextStyle(
+                  color: Colors.grey.shade500,
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
+            ),
+
+            SizedBox(height: 18),
           ],
         ),
       ),
@@ -270,11 +548,11 @@ class _PremiumScreenState extends State<PremiumScreen> {
 
   /// benefit card widget
   Widget benefitCard(
-    String imagePath,
-    String title,
-    description,
-    BuildContext context,
-  ) => Container(
+      String imagePath,
+      String title,
+      description,
+      BuildContext context,
+      ) => Container(
     margin: EdgeInsets.only(left: 15, right: 15),
     decoration: BoxDecoration(
       boxShadow: [
@@ -397,13 +675,13 @@ Widget priceToggle(bool isAnnual, Function(bool) onChanged) {
 
 /// Price Widget
 Widget pricingCard(
-  BuildContext context,
-  int index,
-  bool isAnnual,
-  int selectedIndex,
-  VoidCallback onSelect,
-  Map<String, dynamic> plan,
-) => GestureDetector(
+    BuildContext context,
+    int index,
+    bool isAnnual,
+    int selectedIndex,
+    VoidCallback onSelect,
+    Map<String, dynamic> plan,
+    ) => GestureDetector(
   onTap: onSelect,
   child: Stack(
     children: [
@@ -420,13 +698,13 @@ Widget pricingCard(
             ),
           ),
           color:
-              plan['highlight1'] == true
-                  ? Colors.blue.shade100
-                  : (plan['highlight2'] == true
-                      ? Color(0xffffc87c)
-                      : (plan['highlight3'] == true
-                          ? Color(0xffd1ac3f)
-                          : Colors.grey)),
+          plan['highlight1'] == true
+              ? Colors.blue.shade100
+              : (plan['highlight2'] == true
+              ? Color(0xffffc87c)
+              : (plan['highlight3'] == true
+              ? Color(0xffd1ac3f)
+              : Colors.grey)),
           elevation: 4,
           shadowColor: Color(0xfffaf0e6),
           child: Padding(
@@ -444,7 +722,7 @@ Widget pricingCard(
                 ),
                 SizedBox(height: 5),
                 Text(
-                  '₹${isAnnual ? plan['annual'] : plan['monthly']} / ${isAnnual ? 'Year' : 'Month'}',
+                  '"₹"${isAnnual ? plan['annual'] : plan['monthly']} / ${isAnnual ? 'Year' : 'Month'}',
                   style: TextStyle(
                     fontSize: 20,
                     color: Colors.orange.shade900,
@@ -453,23 +731,23 @@ Widget pricingCard(
                 ),
                 Column(
                   children:
-                      plan['features'].map<Widget>((feature) {
-                        return Padding(
-                          padding: const EdgeInsets.only(top: 4.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.check_circle,
-                                color: Colors.green,
-                                size: 16,
-                              ),
-                              SizedBox(width: 8),
-                              Text(feature, style: TextStyle(fontSize: 14)),
-                            ],
+                  plan['features'].map<Widget>((feature) {
+                    return Padding(
+                      padding: const EdgeInsets.only(top: 4.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.check_circle,
+                            color: Colors.green,
+                            size: 16,
                           ),
-                        );
-                      }).toList(),
+                          SizedBox(width: 8),
+                          Text(feature, style: TextStyle(fontSize: 14)),
+                        ],
+                      ),
+                    );
+                  }).toList(),
                 ),
                 SizedBox(height: 8),
                 ElevatedButton(
@@ -480,9 +758,9 @@ Widget pricingCard(
                     shadowColor: Colors.blue.shade200,
                     elevation: 5,
                     backgroundColor:
-                        selectedIndex == index
-                            ? Colors.green
-                            : Colors.blue.shade900,
+                    selectedIndex == index
+                        ? Colors.green
+                        : Colors.blue.shade900,
                   ),
                   onPressed: () {},
                   child: Text(

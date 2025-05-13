@@ -3,7 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:motogenie_app/data_models/loginpage.dart';
+import 'package:motogenie_app/screens/loginpage.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});

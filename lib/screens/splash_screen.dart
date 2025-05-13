@@ -2,8 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:motogenie_app/bottom_navigation.dart';
-import 'package:motogenie_app/data_models/checkuser.dart';
-import 'package:motogenie_app/data_models/loginpage.dart';
+import 'package:motogenie_app/screens/checkuser.dart';
+import 'package:motogenie_app/screens/loginpage.dart';
 import 'package:motogenie_app/screens/premium_page.dart';
 
 class SplashScreen extends StatefulWidget {
