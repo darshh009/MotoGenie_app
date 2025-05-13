@@ -5,7 +5,8 @@ import 'package:motogenie_app/data_models/uihelper.dart';
 import 'loginpage.dart';
 
 class Signuppage extends StatefulWidget {
-  const Signuppage({super.key});
+  Signuppage({required firstnameController, key});
+  static TextEditingController firstnameController = TextEditingController();
 
   @override
   State<Signuppage> createState() => _SignuppageState();

@@ -20,15 +20,16 @@ class _LoginPageState extends State<LoginPage> {
     if (email.isEmpty || password.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text("Please fill in all fields",
+          content: Text(
+            "Please fill in all fields",
             style: TextStyle(
               fontSize: 18,
               color: Colors.white,
               fontWeight: FontWeight.bold,
-            ),),
+            ),
+          ),
           backgroundColor: Colors.redAccent,
           behavior: SnackBarBehavior.floating,
-
         ),
       );
       return;
@@ -42,16 +43,21 @@ class _LoginPageState extends State<LoginPage> {
 
       Future.delayed(Duration(seconds: 2));
 
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Login Successful",
-        style: TextStyle(
-          fontSize: 18,
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
-        ),),
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            "Login Successful",
+            style: TextStyle(
+              fontSize: 18,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           backgroundColor: Colors.green.shade500,
           behavior: SnackBarBehavior.floating,
-          duration: Duration(seconds: 2)
-      ));
+          duration: Duration(seconds: 2),
+        ),
+      );
 
       Navigator.pushReplacement(
         context,
@@ -83,7 +89,8 @@ class _LoginPageState extends State<LoginPage> {
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(errorMessage,
+          content: Text(
+            errorMessage,
             style: TextStyle(
               fontSize: 18,
               color: Colors.white,
@@ -95,7 +102,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
       );
     }
-    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -188,7 +195,9 @@ class _LoginPageState extends State<LoginPage> {
                               showDragHandle: true,
                               isScrollControlled: true,
                               context: context,
-                              builder: (context) => Signuppage(),
+                              builder:
+                                  (context) =>
+                                      Signuppage(firstnameController: null),
                             );
                           },
                           child: Text(
