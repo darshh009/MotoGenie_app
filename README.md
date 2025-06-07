@@ -35,6 +35,21 @@ This project is a **collaborative team effort**, managed and developed using **G
 | **Flutter Widgets**  | Building responsive and interactive UI elements         |
 
 ---
+## 🧑‍💻 Contributions / What I worked on
+
+- 🎬 Designed and implemented the **animated Splash Screen**, including custom app logo and smooth transition animations.
+- 🧑‍💻 Designed and developed the **Subscription Screen** featuring the GenieElite subscription model with Basic, Pro, and Elite plans.
+- 🔐 Implemented **Firebase Authentication logic** to handle user login and signup UI flows.
+- 💳 Built **payment subscription UI** and integrated **Razorpay API** for secure subscription purchase handling.
+- 🧭 Developed seamless **navigation flow**, including premium access and premium-only screens.
+- 🛠️ Maintained a clean, modular, and scalable project structure using Flutter best practices.
+- 🤝 Collaborated closely with the team using **GitHub** for version control and project management.
+
+---
+
+
+
+
 
 ## 📸 Screenshots
 
@@ -68,17 +83,6 @@ This project is a **collaborative team effort**, managed and developed using **G
 
 ---
 
-## 🧑‍💻 Contributions / What I worked on
-
-- 🎬 Designed and implemented the **animated Splash Screen**, including custom app logo and smooth transition animations.
-- 🧑‍💻 Designed and developed the **Subscription Screen** featuring the GenieElite subscription model with Basic, Pro, and Elite plans.
-- 🔐 Implemented **Firebase Authentication logic** to handle user login and signup UI flows.
-- 💳 Built **payment subscription UI** and integrated **Razorpay API** for secure subscription purchase handling.
-- 🧭 Developed seamless **navigation flow**, including premium access and premium-only screens.
-- 🛠️ Maintained a clean, modular, and scalable project structure using Flutter best practices.
-- 🤝 Collaborated closely with the team using **GitHub** for version control and project management.
-
----
 
 ## 📧 Contact
 
