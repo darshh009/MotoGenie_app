@@ -54,8 +54,8 @@ This project is a **collaborative team effort**, managed and developed using **G
 ## 📸 Screenshots
 
 <p align="center">
-  <img src="assets/splash-screen.png" alt="Splash Screen" width="300" /> &nbsp;&nbsp;
-  <img src="assets/subscription-screen.png" alt="Subscription Screen" width="300" />
+  <img src="assets/splash_screen.png" alt="Splash Screen" width="300" /> &nbsp;&nbsp;
+  <img src="assets/subscription_screen.png" alt="Subscription Screen" width="300" />
 </p>
 
 ---
