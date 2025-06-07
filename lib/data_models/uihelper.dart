@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 
 class UiHelper {
   static CustomTextField(
-    TextEditingController controller,
-    String text,
-    IconData iconData,
-    bool toHide,
-  ) {
+      TextEditingController controller,
+      String text,
+      IconData iconData,
+      bool toHide,
+      ) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
       child: TextField(

@@ -129,7 +129,6 @@ class _SignuppageState extends State<Signuppage> {
             ],
           ),
           SizedBox(height: 20),
-          UiHelper.CustomLogin(),
         ],
       ),
     );

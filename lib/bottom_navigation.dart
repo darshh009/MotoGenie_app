@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:motogenie_app/screens/home_page.dart';
 import 'package:motogenie_app/screens/order_page.dart';
-import 'package:motogenie_app/screens/practice_screen.dart';
 import 'package:motogenie_app/screens/premium_page.dart';
 import 'package:motogenie_app/screens/profile_screen.dart';
 

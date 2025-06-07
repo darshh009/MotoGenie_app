@@ -23,6 +23,10 @@ class _PremiumScreenState extends State<PremiumScreen> {
   bool isAnnual = false;
   int selectedIndex = 0;
   late RazorPayService _razorPayService=RazorPayService(context: context);
+  String? activeSubscriptionName;
+  DateTime? activeTill;
+
+
 
   @override
   void initState() {
@@ -30,6 +34,8 @@ class _PremiumScreenState extends State<PremiumScreen> {
     super.initState();
     _razorPayService = RazorPayService(context: context);
   }
+
+
 
 
   @override
@@ -44,6 +50,10 @@ class _PremiumScreenState extends State<PremiumScreen> {
     final selectedPlan = PricingData.plans[selectedIndex];
     int amount = isAnnual ? selectedPlan['annual'] : selectedPlan['monthly'];
     String planName = selectedPlan['name'];
+    final endDate = isAnnual
+        ? DateTime.now().add(Duration(days: 365))
+        : DateTime.now().add(Duration(days: 30));
+
     _razorPayService.openCheckout(amount: amount, planName: planName);
   }
 
@@ -117,6 +127,7 @@ class _PremiumScreenState extends State<PremiumScreen> {
                       ),
                     ),
                   ),
+
 
 
 
@@ -248,6 +259,7 @@ class _PremiumScreenState extends State<PremiumScreen> {
               ),
             ),
 
+
             SizedBox(height: 7),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
@@ -261,13 +273,14 @@ class _PremiumScreenState extends State<PremiumScreen> {
                         selectedIndex = index;
                       });
                       showModalBottomSheet(
+
+
                         backgroundColor: Colors.transparent,
                         context: context,
                         builder: (context) {
                           final startDate = DateTime.now();
                           final isAnnualSelected = isAnnual;
-                          final price =
-                          isAnnualSelected
+                          final price = isAnnualSelected
                               ? PricingData.plans[index]['annual']
                               : PricingData.plans[index]['monthly'];
                           final endDate =
@@ -295,7 +308,7 @@ class _PremiumScreenState extends State<PremiumScreen> {
                             ),
                             child: Container(
                               width: double.infinity,
-                              height: MediaQuery.of(context).size.height * 0.39,
+                              height: MediaQuery.of(context).size.height * 0.46,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(7),
                                 color: Colors.white,
@@ -486,12 +499,6 @@ class _PremiumScreenState extends State<PremiumScreen> {
                                               fontFamily: GoogleFonts.poppins().fontFamily
                                           ))),
                                     )
-
-
-
-
-
-
 
 
                                   ],

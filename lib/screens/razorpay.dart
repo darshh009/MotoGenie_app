@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../data_models/pricing_data.dart';
 class RazorPayService {
 
   final Razorpay _razorpay = Razorpay();
@@ -36,8 +39,11 @@ class RazorPayService {
 
 
 
-  void _handlePaymentSuccess(PaymentSuccessResponse response) {
+  Future<void> _handlePaymentSuccess(PaymentSuccessResponse response) async {
     Navigator.pop(context);
+
+
+
     ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Payment Successful",
           style: TextStyle(

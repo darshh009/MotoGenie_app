@@ -213,8 +213,6 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                   SizedBox(height: 30),
-                  UiHelper.CustomLogin(),
-                  SizedBox(height: 15),
                   Center(
                     child: Text(
                       "🇮🇳 App Proudly made in India",
